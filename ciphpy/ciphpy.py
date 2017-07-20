@@ -4,7 +4,7 @@ import string
 import re
 
 
-class Cipher(object):
+class Cipher:
     """
     xxxxx
         
@@ -91,7 +91,7 @@ class Cipher(object):
             
             """
             t1 = time.time()
-            wrapped_function(s, message, code)
+            wrapper = wrapped_function(s, message, code)
             t2 = time.time()
             total = t2 - t1
             if total < 60.:
@@ -101,6 +101,7 @@ class Cipher(object):
                 total = total/60.
                 total = str(round(total, 3))
                 print("\t\t" + code + " time (min):\t" + total + "\n")
+            return wrapper
         return wrapper
 
 
@@ -168,22 +169,21 @@ class Cipher(object):
 
 if __name__ == "__main__":
     daily_key = "Non_Ducor,_Duco"
-    cipher = Cipher(daily_key, key_extension=100)
+    cipher = Cipher(daily_key, key_extension=50)
     
     # Test 1
-    print("---------------------------------------------")
-    message_to_send = daily_key[0]*len(daily_key)
+    print("-- Test 1 -----------------------------------")
+    message_to_send = daily_key
     
     encrypted_message = cipher.encode(message_to_send, "Encoding")
-    message_received = daily_key[-1]*len(daily_key)
+    message_received = encrypted_message
     decrypted_message = cipher.decode(message_received, "Decoding")
     print("---------------------------------------------")
     
     # Test 2
-    print("---------------------------------------------")
+    print("-- Test 2 -----------------------------------")
     message_to_send = "Who_was_your_favorite_actor_in_the_90s?"
-    #message_to_send = "Who_is_your_favorite_actor?"
     encrypted_message = cipher.encode(message_to_send, "Encoding")
-    message_received = "wiq|0fyb6x42gso!480$ypwz*%*v!)y;%#2e{@0"
+    message_received = "62z?kupy90?lon28sq?i8t5v|n|0w02`"
     decrypted_message = cipher.decode(message_received, "Decoding")
     print("---------------------------------------------")
